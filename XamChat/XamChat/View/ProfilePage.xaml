@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:XamChat.ViewModel"
+             xmlns:imagecircle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             x:Class="XamChat.View.ProfilePage"
+             Title="Profile">
+    <ContentPage.BindingContext>
+        <viewmodel:ProfileViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <BoxView Grid.ColumnSpan="3"
+                             BackgroundColor="{StaticResource PrimaryColor}" 
+                             HorizontalOptions="FillAndExpand"
+                             HeightRequest="100" />
+                    <StackLayout Grid.RowSpan="2" 
+                                 Grid.Column="1" 
+                                 Margin="0,50,0,0">
+                        <imagecircle:CircleImage 
+                            FillColor="White" 
+                                        BorderColor="White"
+                                        BorderThickness="2"
+                                        Source="{OnPlatform UWP='Assets/james.jpg', Default='james.jpg'}"
+                                        VerticalOptions="Center"
+                                        HeightRequest="100"
+                                        WidthRequest="100"
+                                        Aspect="AspectFill"/>
+                    </StackLayout>
+                </Grid>
+
+                <Entry Text="{Binding UserName}"
+                       Placeholder="Username:"
+                       PlaceholderColor="{StaticResource PrimaryColor}"
+                       TextColor="{StaticResource PrimaryTextColor}"
+                       IsSpellCheckEnabled="False"
+                       Margin="10,10,10,0"
+                       HorizontalOptions="FillAndExpand"
+                       Visual="Material"/>
+
+                <Entry Text="{Binding ServerIP}"
+                       Placeholder="Server IP:"
+                       PlaceholderColor="{StaticResource PrimaryColor}"
+                       TextColor="{StaticResource PrimaryTextColor}"
+                       IsSpellCheckEnabled="False"
+                       Margin="10,10,10,0"
+                       HorizontalOptions="FillAndExpand"
+                       Visual="Material"/>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XamChat.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="PrimaryColor">#ea80fc</Color>
+            <Color x:Key="PrimaryLightColor">#ffb2ff</Color>
+            <Color x:Key="PrimaryDarkColor">#b64fc8</Color>
+            <Color x:Key="SecondaryColor">#aa00ff</Color>
+            <Color x:Key="SecondaryLightColor">#e254ff</Color>
+            <Color x:Key="SecondaryDarkColor">#7200ca</Color>
+            <Color x:Key="PrimaryTextColor">#000000</Color>
+            <Color x:Key="SecondaryTextColor">#ffffff</Color>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

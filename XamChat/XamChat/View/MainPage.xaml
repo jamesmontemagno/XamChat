@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:XamChat.View"
+             xmlns:viewmodel="clr-namespace:XamChat.ViewModel"
+             x:Class="XamChat.View.MainPage"
+             Title="Lobby">
+    <ContentPage.BindingContext>
+        <viewmodel:LobbyViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Profile" x:Name="ToolbarProfile"/>
+    </ContentPage.ToolbarItems>
+    <StackLayout>
+        <Label Margin="10,0" FontSize="Small" Text="Rooms"/>
+        <ListView ItemsSource="{Binding Rooms}"
+                  ItemSelected="ListView_ItemSelected"/>
+    </StackLayout>
+
+</ContentPage>

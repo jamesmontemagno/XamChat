@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="XamChat.View.GroupChatPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="clr-namespace:XamChat.Model"
+    xmlns:viewmodel="clr-namespace:XamChat.ViewModel"
+    Title="{Binding Title}"
+    mc:Ignorable="d">
+    <ContentPage.BindingContext>
+        <viewmodel:ChatViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="ToolbarDone" Text="Done" />
+    </ContentPage.ToolbarItems>
+    <Grid ColumnSpacing="0" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+        <Frame
+            Grid.ColumnSpan="2"
+            Margin="0"
+            Padding="0"
+            HasShadow="True"
+            HorizontalOptions="FillAndExpand"
+            Visual="Material">
+            <CollectionView
+                Grid.Row="0"
+                ItemsLayout="{x:Static ListItemsLayout.HorizontalList}"
+                ItemsSource="{Binding Users}">
+                <d:CollectionView.ItemsSource>
+                    <x:Array Type="{x:Type model:User}">
+                        <model:User
+                            Name="James"
+                            FirstLetter="J"
+                            Color="Red" />
+                        <model:User
+                            Name="Heather"
+                            FirstLetter="H"
+                            Color="Pink" />
+                        <model:User
+                            Name="Motz"
+                            FirstLetter="M"
+                            Color="Orange" />
+                    </x:Array>
+                </d:CollectionView.ItemsSource>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout
+                            Padding="10"
+                            Orientation="Vertical"
+                            Spacing="0">
+                            <Frame
+                                Grid.Column="0"
+                                Padding="0"
+                                BackgroundColor="{Binding Color}"
+                                CornerRadius="20"
+                                HasShadow="True"
+                                HeightRequest="40"
+                                VerticalOptions="CenterAndExpand"
+                                Visual="Material"
+                                WidthRequest="40">
+                                <Label
+                                    HorizontalOptions="Center"
+                                    Text="{Binding FirstLetter}"
+                                    VerticalOptions="Center" />
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Frame>
+        <CollectionView
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            ItemsSource="{Binding Messages}"
+            Rotation="180">
+            <d:CollectionView.ItemsSource>
+                <x:Array Type="{x:Type model:ChatMessage}">
+                    <model:ChatMessage
+                        FirstLetter="J"
+                        Message="Hello world!"
+                        User="James"
+                        Color="Red" />
+                    <model:ChatMessage
+                        FirstLetter="H"
+                        Message="Hello world!"
+                        User="Heather"
+                        Color="Pink" />
+                    <model:ChatMessage
+                        FirstLetter="M"
+                        Message="Hello world!"
+                        User="Motz"
+                        Color="Orange" />
+                </x:Array>
+            </d:CollectionView.ItemsSource>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid
+                        Padding="10"
+                        ColumnSpacing="0"
+                        Rotation="180">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Frame
+                            Grid.Column="0"
+                            Padding="0"
+                            BackgroundColor="{Binding Color}"
+                            CornerRadius="20"
+                            HasShadow="True"
+                            HeightRequest="40"
+                            VerticalOptions="CenterAndExpand"
+                            Visual="Material"
+                            WidthRequest="40">
+                            <Label
+                                HorizontalOptions="Center"
+                                Text="{Binding FirstLetter}"
+                                VerticalOptions="Center" />
+                        </Frame>
+                        <Frame
+                            Grid.Column="1"
+                            Margin="5,0,20,0"
+                            Padding="5"
+                            BackgroundColor="{StaticResource PrimaryDarkColor}"
+                            CornerRadius="20"
+                            Visual="Material">
+                            <Label
+                                Margin="10,5"
+                                Text="{Binding Message}"
+                                TextColor="White" />
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Frame
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            Margin="10,0,10,10"
+            Padding="20,0,10,0"
+            CornerRadius="25"
+            HorizontalOptions="FillAndExpand"
+            Visual="Material">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="40" />
+                </Grid.ColumnDefinitions>
+                <Entry
+                    Grid.Column="0"
+                    BackgroundColor="Transparent"
+                    Placeholder="Message"
+                    ReturnCommand="{Binding SendMessageCommand}"
+                    ReturnType="Send"
+                    Text="{Binding ChatMessage.Message, Mode=TwoWay}"
+                    Visual="Material" />
+                <Frame
+                    Grid.Column="1"
+                    Padding="0"
+                    BackgroundColor="Red"
+                    CornerRadius="20"
+                    HasShadow="True"
+                    HeightRequest="40"
+                    HorizontalOptions="End"
+                    VerticalOptions="CenterAndExpand"
+                    Visual="Material"
+                    WidthRequest="40">
+                    <ImageButton
+                        BackgroundColor="Transparent"
+                        Command="{Binding SendMessageCommand}"
+                        HorizontalOptions="Center"
+                        IsEnabled="{Binding IsNotBusy}"
+                        Source="{OnPlatform Android='ic_send.png',
+                                            iOS='ic_send.png',
+                                            UWP='Assets/ic_send.png'}"
+                        VerticalOptions="Center" />
+                </Frame>
+            </Grid>
+
+        </Frame>
+
+
+        <ActivityIndicator
+            Grid.ColumnSpan="2"
+            d:IsRunning="True"
+            d:IsVisible="True"
+            HorizontalOptions="CenterAndExpand"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="CenterAndExpand" />
+    </Grid>
+</ContentPage>
