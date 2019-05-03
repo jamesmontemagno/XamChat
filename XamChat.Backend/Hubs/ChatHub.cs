@@ -26,21 +26,5 @@ namespace XamChat.Backend.Hubs
         {
             await Clients.Group(groupName).SendAsync("ReceiveMessage", user, message);
         }
-
-        public async Task TypingGroup(string groupName, string user)
-        {
-            await Clients.Group(groupName).SendAsync("TypingMessage", user);
-        }
-
-
-        public async Task SendMessage(string user, string message)
-        {
-            await Clients.All.SendAsync("ReceiveMessage", user, message);
-        }
-
-        public async Task Typing(string user)
-        {
-            await Clients.All.SendAsync("TypingMessage", user);
-        }
     }
 }

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 
+// kymphillpotts cheered 10 May 3, 2019
+
 namespace XamChat.Model
 {
     public class User : ObservableObject
@@ -35,10 +37,10 @@ namespace XamChat.Model
         {
             get
             {
-                if (color != null)
+                if (color != null && color.A != 0)
                     return color;
 
-                color = Color.FromRgb(Random.Next(0, 255), Random.Next(0, 255), Random.Next(0, 255));
+                color = Color.FromRgb(Random.Next(0, 255), Random.Next(0, 255), Random.Next(0, 255)).MultiplyAlpha(.9);
                 return color;
             }
             set => color = value;

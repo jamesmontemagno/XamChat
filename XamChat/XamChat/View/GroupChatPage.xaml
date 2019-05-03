@@ -83,7 +83,7 @@
                 <x:Array Type="{x:Type model:ChatMessage}">
                     <model:ChatMessage
                         FirstLetter="J"
-                        Message="Hello world!"
+                        Message="Hello world from SignalR!"
                         User="James"
                         Color="Red" />
                     <model:ChatMessage
@@ -127,7 +127,7 @@
                             Grid.Column="1"
                             Margin="5,0,20,0"
                             Padding="5"
-                            BackgroundColor="{StaticResource PrimaryDarkColor}"
+                            BackgroundColor="{Binding BackgroundColor}"
                             CornerRadius="20"
                             Visual="Material">
                             <Label
@@ -188,8 +188,10 @@
 
         <ActivityIndicator
             Grid.ColumnSpan="2"
+            Grid.RowSpan="3"
             d:IsRunning="True"
             d:IsVisible="True"
+            Color="{StaticResource PrimaryDarkColor}"
             HorizontalOptions="CenterAndExpand"
             IsRunning="{Binding IsBusy}"
             IsVisible="{Binding IsBusy}"

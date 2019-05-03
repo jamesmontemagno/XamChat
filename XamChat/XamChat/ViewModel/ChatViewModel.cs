@@ -59,15 +59,15 @@ namespace XamChat.ViewModel
 
             ChatService.OnEnteredOrExited += (sender, args) =>
             {
-                SendLocalMessage(args.Message, args.User);
-
-                AddRemoveUser(args.User, args.User.Contains("joined"));
+                AddRemoveUser(args.User, args.Message.Contains("entered"));
             };
 
             ChatService.OnConnectionClosed += (sender, args) =>
             {
                 SendLocalMessage(args.Message, args.User);  
             };
+
+            AddRemoveUser(Settings.UserName, true);
         }
 
 
@@ -81,7 +81,6 @@ namespace XamChat.ViewModel
                 await ChatService.JoinChannelAsync(Settings.Group, Settings.UserName);
                 IsConnected = true;
                 SendLocalMessage("Connected...", Settings.UserName);
-                AddRemoveUser(Settings.UserName, true);
             }
             catch (Exception ex)
             {
@@ -129,11 +128,14 @@ namespace XamChat.ViewModel
         {
             Device.BeginInvokeOnMainThread(() =>
             {
+                var first = Users.FirstOrDefault(u => u.Name == user);
+
                 Messages.Insert(0, new ChatMessage
                 {
                     Message = message,
-                    User = user
-                });
+                    User = user,
+                    Color = first?.Color ?? Color.FromRgba(0, 0, 0, 0)
+                }); ;
             });
         }
 
@@ -141,21 +143,27 @@ namespace XamChat.ViewModel
         {
             if (string.IsNullOrWhiteSpace(name))
                 return;
-            Device.BeginInvokeOnMainThread(() =>
+            if (add)
             {
-                if (add)
+                if (!Users.Any(u => u.Name == name))
                 {
-                    if (!Users.Any(u => u.Name == name))
-                        Users.Add(new User { Name = name });
+                    Device.BeginInvokeOnMainThread(() =>
+                        {
+                            Users.Add(new User { Name = name });
+                        });
                 }
-                else
+            }
+            else
+            {
+                var user = Users.FirstOrDefault(u => u.Name == name);
+                if (user != null)
                 {
-                    var user = Users.FirstOrDefault(u => u.Name == name);
-                    if (user != null)
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
                         Users.Remove(user);
+                    });
                 }
-            });
+            }
         }
-
     }
 }

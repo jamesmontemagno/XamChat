@@ -23,7 +23,12 @@ namespace XamChat.Core
         public void Init(string urlRoot, bool useHttps)
         {
             random = new Random();
-            var url = $"http{(useHttps ? "s" : string.Empty)}://{urlRoot}/hubs/chat";
+
+            var port = (urlRoot == "localhost" || urlRoot == "10.0.2.2") ?
+                (useHttps ? ":5001" : ":5000") :
+                string.Empty;
+
+            var url = $"http{(useHttps ? "s" : string.Empty)}://{urlRoot}{port}/hubs/chat";
             hubConnection = new HubConnectionBuilder()
             .WithUrl(url)
             .Build();

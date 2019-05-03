@@ -10,14 +10,16 @@ namespace XamChat.ConsoleApp
     {
         static ChatService service;
         static string room;
-        static string name = "console app";
+        static string name;
+        static Random random = new Random();
         public static async Task Main(string[] args)
         {
+            name = "console " + random.Next(0, 10000);
             service = new ChatService();
             service.OnReceivedMessage += Service_OnReceivedMessage;
             Console.WriteLine("Enter IP:");
             var ip = Console.ReadLine();
-            service.Init(ip, ip == "localhost");
+            service.Init(ip, ip != "localhost");
 
             await service.ConnectAsync();
             Console.WriteLine("You are connected...");
@@ -57,7 +59,7 @@ namespace XamChat.ConsoleApp
 
         private static void Service_OnReceivedMessage(object sender, MessageEventArgs e)
         {
-            if (e.User == "console app")
+            if (e.User == name)
                 return;
             Console.WriteLine(e.Message);
         }

@@ -43,13 +43,27 @@ namespace XamChat.Model
         {
             get
             {
-                if (color != null)
+                if (color != null && color.A != 0)
                     return color;
 
-                color = Color.FromRgb(Random.Next(0, 255), Random.Next(0, 255), Random.Next(0, 255));
+                color = Color.FromRgb(Random.Next(0, 255), Random.Next(0, 255), Random.Next(0, 255)).MultiplyAlpha(.9);
                 return color;
             }
             set => color = value;
+        }
+
+        Color backgroundColor;
+        public Color BackgroundColor
+        {
+            get
+            {
+                if (backgroundColor != null && backgroundColor.A != 0)
+                    return backgroundColor;
+
+                backgroundColor = Color.MultiplyAlpha(.6);
+                return backgroundColor;
+            }
+            set => backgroundColor = value;
         }
     }
 }
