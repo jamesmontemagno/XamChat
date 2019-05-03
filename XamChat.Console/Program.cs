@@ -9,6 +9,8 @@ namespace XamChat.ConsoleApp
     public class Program
     {
         static ChatService service;
+        static string room;
+        static string name = "console app";
         public static async Task Main(string[] args)
         {
             service = new ChatService();
@@ -19,10 +21,8 @@ namespace XamChat.ConsoleApp
 
             await service.ConnectAsync();
             Console.WriteLine("You are connected...");
-            Console.WriteLine($"Enter room ({string.Join(",", service.GetRooms())}):");
-            var room = Console.ReadLine();
 
-            await service.JoinChannelAsync(room, "console app");
+            await JoinRoom();
 
             var keepGoing = true;
             do
@@ -32,18 +32,33 @@ namespace XamChat.ConsoleApp
                 {
                     keepGoing = false;
                 }
+                else if(text == "leave")
+                {
+                    await service.LeaveChannelAsync(room, name);
+                    await JoinRoom();
+                }
                 else
                 {
-                    await service.SendMessageAsync(room, "console app", text);
+                    await service.SendMessageAsync(room, name, text);
                 }
             }
             while (keepGoing);
+        }
+
+        static async Task JoinRoom()
+        {
+            Console.WriteLine($"Enter room ({string.Join(",", service.GetRooms())}):");
+            room = Console.ReadLine();
+
+            await service.JoinChannelAsync(room, name);
         }
 
 
 
         private static void Service_OnReceivedMessage(object sender, MessageEventArgs e)
         {
+            if (e.User == "console app")
+                return;
             Console.WriteLine(e.Message);
         }
     }

@@ -53,20 +53,20 @@ namespace XamChat.ViewModel
 
             ChatService.OnReceivedMessage += (sender, args) =>
             {
-                SendLocalMessage(args.Message);
+                SendLocalMessage(args.Message, args.User);
                 AddRemoveUser(args.User, true);
             };
 
             ChatService.OnEnteredOrExited += (sender, args) =>
             {
-                SendLocalMessage(args.Message);
+                SendLocalMessage(args.Message, args.User);
 
-                AddRemoveUser(args.User, args.User.Contains("entered"));
+                AddRemoveUser(args.User, args.User.Contains("joined"));
             };
 
             ChatService.OnConnectionClosed += (sender, args) =>
             {
-                SendLocalMessage(args.Message);  
+                SendLocalMessage(args.Message, args.User);  
             };
         }
 
@@ -80,12 +80,12 @@ namespace XamChat.ViewModel
                 await ChatService.ConnectAsync();
                 await ChatService.JoinChannelAsync(Settings.Group, Settings.UserName);
                 IsConnected = true;
-                SendLocalMessage("Connected...");
+                SendLocalMessage("Connected...", Settings.UserName);
                 AddRemoveUser(Settings.UserName, true);
             }
             catch (Exception ex)
             {
-                SendLocalMessage($"Connection error: {ex.Message}");
+                SendLocalMessage($"Connection error: {ex.Message}", Settings.UserName);
             }
         }
 
@@ -96,7 +96,7 @@ namespace XamChat.ViewModel
             await ChatService.LeaveChannelAsync(Settings.Group, Settings.UserName);
             await ChatService.DisconnectAsync();
             IsConnected = false;
-            SendLocalMessage("Disconnected...");
+            SendLocalMessage("Disconnected...", Settings.UserName);
         }
 
         async Task SendMessage()
@@ -117,7 +117,7 @@ namespace XamChat.ViewModel
             }
             catch (Exception ex)
             {
-                SendLocalMessage($"Send failed: {ex.Message}");
+                SendLocalMessage($"Send failed: {ex.Message}", Settings.UserName);
             }
             finally
             {
@@ -125,13 +125,14 @@ namespace XamChat.ViewModel
             }
         }
 
-        private void SendLocalMessage(string message)
+        private void SendLocalMessage(string message, string user)
         {
             Device.BeginInvokeOnMainThread(() =>
             {
                 Messages.Insert(0, new ChatMessage
                 {
-                    Message = message
+                    Message = message,
+                    User = user
                 });
             });
         }

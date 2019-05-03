@@ -46,8 +46,7 @@ namespace XamChat.Core
 
             hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
             {
-                var finalMessage = $"{user} says {message}";
-                OnReceivedMessage?.Invoke(this, new MessageEventArgs(finalMessage, user));
+                OnReceivedMessage?.Invoke(this, new MessageEventArgs(message, user));
             });
 
             hubConnection.On<string>("Entered", (user) =>
@@ -64,7 +63,7 @@ namespace XamChat.Core
 
             hubConnection.On<string>("EnteredOrLeft", (message) =>
             {
-                OnEnteredOrExited?.Invoke(this, new MessageEventArgs(message, message[0].ToString()));                
+                OnEnteredOrExited?.Invoke(this, new MessageEventArgs(message, message));                
             });
         }
 
@@ -84,7 +83,7 @@ namespace XamChat.Core
 
             try
             {
-                await hubConnection.StopAsync();
+                //await hubConnection.StopAsync();
             }
             catch (Exception ex)
             {
