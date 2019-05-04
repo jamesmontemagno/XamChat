@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System;
 using XamChat.Helpers;
 using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace XamChat.ViewModel
 {
@@ -12,8 +13,8 @@ namespace XamChat.ViewModel
     {
         public ChatMessage ChatMessage { get; }
 
-        public ObservableRangeCollection<ChatMessage> Messages { get; }
-        public ObservableRangeCollection<User> Users { get; }
+        public ObservableCollection<ChatMessage> Messages { get; }
+        public ObservableCollection<User> Users { get; }
 
         bool isConnected;
         public bool IsConnected
@@ -42,8 +43,8 @@ namespace XamChat.ViewModel
             Title = Settings.Group;
 
             ChatMessage = new ChatMessage();
-            Messages = new ObservableRangeCollection<ChatMessage>();
-            Users = new ObservableRangeCollection<User>();
+            Messages = new ObservableCollection<ChatMessage>();
+            Users = new ObservableCollection<User>();
             SendMessageCommand = new Command(async () => await SendMessage());
             ConnectCommand = new Command(async () => await Connect());
             DisconnectCommand = new Command(async () => await Disconnect());
@@ -135,7 +136,7 @@ namespace XamChat.ViewModel
                     Message = message,
                     User = user,
                     Color = first?.Color ?? Color.FromRgba(0, 0, 0, 0)
-                }); ;
+                });
             });
         }
 
