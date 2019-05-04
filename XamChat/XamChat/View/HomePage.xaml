@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <TabbedPage
     x:Class="XamChat.View.HomePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -10,13 +10,13 @@
     android:TabbedPage.IsSwipePagingEnabled="False"
     android:TabbedPage.ToolbarPlacement="Bottom"
     BarBackgroundColor="{OnPlatform Android=White}">
-    <pages:XamChatNavigationPage Title="Dashboard" Icon="{OnPlatform Android=tab_dashboard, iOS=tab_dashboard}">
+    <pages:XamChatNavigationPage Title="Dashboard" Icon="{OnPlatform Android=tab_dashboard, iOS=tab_chat}">
         <x:Arguments>
             <pages:MainPage />
         </x:Arguments>
     </pages:XamChatNavigationPage>
 
-    <pages:XamChatNavigationPage Title="Profile" Icon="{OnPlatform Android=tab_person, iOS=tab_person}">
+    <pages:XamChatNavigationPage Title="Profile" Icon="{OnPlatform Android=tab_person, iOS=tab_dashboard}">
         <x:Arguments>
             <pages:ProfilePage />
         </x:Arguments>
