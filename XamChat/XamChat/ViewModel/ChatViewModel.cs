@@ -153,9 +153,10 @@ namespace XamChat.ViewModel
             {
                 if (!Users.Any(u => u.Name == name))
                 {
+                    var color = Messages.FirstOrDefault(m => m.User == name)?.Color ?? Color.FromRgba(0, 0, 0, 0);
                     Device.BeginInvokeOnMainThread(() =>
                         {
-                            Users.Add(new User { Name = name });
+                            Users.Add(new User { Name = name, Color = color });
                         });
                 }
             }
