@@ -76,7 +76,8 @@ namespace XamChat.ViewModel
             if (IsConnected)
                 return;
             try
-            {                
+            {
+                IsBusy = true;
                 await ChatService.ConnectAsync();
                 await ChatService.JoinChannelAsync(Settings.Group, Settings.UserName);
                 IsConnected = true;
@@ -85,6 +86,10 @@ namespace XamChat.ViewModel
             catch (Exception ex)
             {
                 SendLocalMessage($"Connection error: {ex.Message}", Settings.UserName);
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 
