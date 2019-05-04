@@ -67,8 +67,6 @@ namespace XamChat.ViewModel
             {
                 SendLocalMessage(args.Message, args.User);  
             };
-
-            AddRemoveUser(Settings.UserName, true);
         }
 
 
@@ -82,6 +80,9 @@ namespace XamChat.ViewModel
                 await ChatService.ConnectAsync();
                 await ChatService.JoinChannelAsync(Settings.Group, Settings.UserName);
                 IsConnected = true;
+
+                AddRemoveUser(Settings.UserName, true);
+                await Task.Delay(500);
                 SendLocalMessage("Connected...", Settings.UserName);
             }
             catch (Exception ex)
