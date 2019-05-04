@@ -88,7 +88,7 @@ namespace XamChat.Core
 
             try
             {
-                //await hubConnection.StopAsync();
+                await hubConnection.DisposeAsync();
             }
             catch (Exception ex)
             {
