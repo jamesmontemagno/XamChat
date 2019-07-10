@@ -30,22 +30,13 @@
             Visual="Material">
             <CollectionView
                 Grid.Row="0"
-                ItemsLayout="{x:Static ListItemsLayout.HorizontalList}"
+                ItemsLayout="HorizontalList"
                 ItemsSource="{Binding Users}">
                 <d:CollectionView.ItemsSource>
                     <x:Array Type="{x:Type model:User}">
-                        <model:User
-                            Name="James"
-                            FirstLetter="J"
-                            Color="Red" />
-                        <model:User
-                            Name="Heather"
-                            FirstLetter="H"
-                            Color="Pink" />
-                        <model:User
-                            Name="Motz"
-                            FirstLetter="M"
-                            Color="Orange" />
+                        <model:User Name="James" FirstLetter="J" Color="Red" />
+                        <model:User Name="Heather" FirstLetter="H" Color="Pink" />
+                        <model:User Name="Motz" FirstLetter="M" Color="Orange" />
                     </x:Array>
                 </d:CollectionView.ItemsSource>
                 <CollectionView.ItemTemplate>
@@ -81,21 +72,12 @@
             Rotation="180">
             <d:CollectionView.ItemsSource>
                 <x:Array Type="{x:Type model:ChatMessage}">
-                    <model:ChatMessage
-                        FirstLetter="J"
-                        Message="Hello world from SignalR!"
-                        User="James"
-                        Color="Red" />
-                    <model:ChatMessage
-                        FirstLetter="H"
-                        Message="Hello world!"
-                        User="Heather"
-                        Color="Pink" />
-                    <model:ChatMessage
-                        FirstLetter="M"
-                        Message="Hello world!"
-                        User="Motz"
-                        Color="Orange" />
+                    <model:ChatMessage FirstLetter="J" Message="Hello world from SignalR!"
+                        User="James" Color="Red" />
+                    <model:ChatMessage FirstLetter="H" Message="Hello world!"
+                        User="Heather" Color="Pink" />
+                    <model:ChatMessage FirstLetter="M" Message="Hello world!"
+                        User="Motz" Color="Orange" />
                 </x:Array>
             </d:CollectionView.ItemsSource>
             <CollectionView.ItemTemplate>
