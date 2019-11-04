@@ -28,7 +28,7 @@ namespace XamChat.ViewModel
             {
                 if (value == ServerIP)
                     return;
-                Settings.ServerIP = value;
+                Settings.ServerIP = value.ToLower();
                 OnPropertyChanged();
             }
         }
