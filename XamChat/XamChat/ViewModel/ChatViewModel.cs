@@ -54,8 +54,8 @@ namespace XamChat.ViewModel
 
             ChatService.OnReceivedMessage += (sender, args) =>
             {
-                SendLocalMessage(args.Message, args.User);
                 AddRemoveUser(args.User, true);
+                SendLocalMessage(args.Message, args.User);
             };
 
             ChatService.OnEnteredOrExited += (sender, args) =>
