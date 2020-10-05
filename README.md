@@ -1,5 +1,5 @@
 # XamChat
-[SignalR](https://dotnet.microsoft.com/apps/aspnet/real-time) Chat [Xamarin](https://dotnet.microsoft.com/apps/xamarin) App from Microsoft Build 2019
+[SignalR](https://dotnet.microsoft.com/apps/aspnet/real-time?WT.mc_id=xamchat-github-jamont) Chat [Xamarin](https://dotnet.microsoft.com/apps/xamarin?WT.mc_id=xamchat-github-jamont) App from Microsoft Build 2019
 
 
 * [Session Video from Build](https://youtu.be/9KnHwJNlx-A)
